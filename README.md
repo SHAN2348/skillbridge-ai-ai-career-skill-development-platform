@@ -1,0 +1,2 @@
+# skillbridge-ai-ai-career-skill-development-platform
+Many students, especially those studying in tier-2 and tier-3 colleges, struggle to choose the right career path and learn the correct skills required for jobs in the IT industry. They often waste time learning random courses without understanding industry requirements. SkillBridge AI solves this problem by providing an AI-powered platform that ana
