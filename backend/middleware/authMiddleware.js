@@ -5,14 +5,27 @@ module.exports = function (req, res, next) {
   const token = req.header("Authorization");
 
   if (!token) {
-    return res.send("Access Denied. No token provided.");
+    return res.status(401).json({
+      message: "Access Denied. No token provided ❌"
+    });
   }
 
   try {
-    const verified = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = verified;
+
+    const verified = jwt.verify(
+      token,
+      process.env.JWT_SECRET || "secretkey"
+    );
+
+    req.user = verified;   // contains id and role
+
     next();
+
   } catch (error) {
-    res.send("Invalid Token");
+
+    return res.status(401).json({
+      message: "Invalid Token ❌"
+    });
+
   }
 };
