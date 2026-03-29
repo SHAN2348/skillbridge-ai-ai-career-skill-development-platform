@@ -34,6 +34,7 @@ function Dashboard() {
     } else {
       fetchSkills();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]); // important fix
 
   // ADD SKILL
