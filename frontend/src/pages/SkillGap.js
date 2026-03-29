@@ -29,7 +29,7 @@ function SkillGap() {
       }
 
       const res = await axios.get(
-        `http://localhost:5000/skill-gap/${jobTitle}`,
+        `https://skillbridge-ai-backend-a6hr.onrender.com/skill-gap/${jobTitle}`,
         {
           headers: {
             Authorization: token,
