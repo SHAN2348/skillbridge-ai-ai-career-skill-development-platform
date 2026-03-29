@@ -268,7 +268,6 @@ app.get("/skill-gap/:jobTitle", authMiddleware, async (req, res) => {
   }
 });
 
-});
   
 
 // ================= START SERVER =================
