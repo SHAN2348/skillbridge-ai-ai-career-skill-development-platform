@@ -23,7 +23,7 @@ function Signup() {
     try {
       setLoading(true);
 
-      const res = await axios.post("http://localhost:5000/signup", {
+      const res = await axios.post("https://skillbridge-ai-backend-a6hr.onrender.com/signup", {
         name,
         email,
         password
