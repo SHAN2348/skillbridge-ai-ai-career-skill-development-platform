@@ -10,27 +10,33 @@ function Dashboard() {
 
   const token = localStorage.getItem("token");
 
-  useEffect(() => {
-    if (!token) {
-      window.location.href = "/login";
-    } else {
-      fetchSkills();
-    }
-  }, []);
-
+  // FETCH SKILLS FUNCTION
   const fetchSkills = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/my-skills", {
-        headers: {
-          Authorization: token,
-        },
-      });
+      const res = await axios.get(
+        "https://skillbridge-ai-backend-a6hr.onrender.com/my-skills",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       setSkills(res.data);
     } catch (error) {
       alert("Failed to fetch skills");
     }
   };
 
+  // FIXED useEffect (this was causing Netlify error)
+  useEffect(() => {
+    if (!token) {
+      window.location.href = "/login";
+    } else {
+      fetchSkills();
+    }
+  }, [token]); // important fix
+
+  // ADD SKILL
   const addSkill = async () => {
     if (!skillName || !level) {
       alert("Please enter skill and level");
@@ -41,11 +47,11 @@ function Dashboard() {
       setLoading(true);
 
       await axios.post(
-        "http://localhost:5000/add-skill",
+        "https://skillbridge-ai-backend-a6hr.onrender.com/add-skill",
         { skillName, level },
         {
           headers: {
-            Authorization: token,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -60,13 +66,17 @@ function Dashboard() {
     }
   };
 
+  // DELETE SKILL
   const deleteSkill = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/delete-skill/${id}`, {
-        headers: {
-          Authorization: token,
-        },
-      });
+      await axios.delete(
+        `https://skillbridge-ai-backend-a6hr.onrender.com/delete-skill/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       fetchSkills();
     } catch (error) {
@@ -76,10 +86,8 @@ function Dashboard() {
 
   return (
     <div>
-      {/* NAVBAR COMPONENT */}
       <Navbar />
 
-      {/* DASHBOARD CONTENT */}
       <div className="container mt-5">
         <h2 className="text-center mb-4">Student Dashboard</h2>
 
