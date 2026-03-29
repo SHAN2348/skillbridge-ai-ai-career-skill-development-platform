@@ -6,6 +6,7 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import SkillGap from "./pages/SkillGap";
+import AdminDashboard from "./pages/AdminDashboard";
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
         {/* App pages */}
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/skill-gap" element={<SkillGap />} />
+
+        <Route path="/admin" element={<AdminDashboard />} />
 
       </Routes>
     </BrowserRouter>
