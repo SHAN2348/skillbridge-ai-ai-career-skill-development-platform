@@ -48,8 +48,8 @@ function SkillGap() {
         `https://skillbridge-ai-backend-a6hr.onrender.com/skill-gap/${jobTitle}`,
         {
           headers: {
-            Authorization: token,
-          },
+  Authorization: `Bearer ${token}`,
+                    }
         }
       );
 
