@@ -10,37 +10,52 @@ function Login() {
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    // basic validation
-    if (!email || !password) {
-      alert("Please enter both email and password");
-      return;
-    }
+  if (!email || !password) {
+    alert("Please enter both email and password");
+    return;
+  }
 
-    try {
-      setLoading(true);
+  try {
+    setLoading(true);
 
-      const res = await axios.post("https://skillbridge-ai-backend-a6hr.onrender.com/login", {
+    const res = await axios.post(
+      "https://skillbridge-ai-backend-a6hr.onrender.com/login",
+      {
         email,
         password,
-      });
+      }
+    );
+    console.log(res.data);  //add line
 
-      // store token
-      localStorage.setItem("token", res.data.token);
+    // store token
+    localStorage.setItem("token", res.data.token);
+
+    // store name
     localStorage.setItem("username", res.data.user.name);
 
-      alert("Login Successful");
+    // store role
+    localStorage.setItem("role", res.data.user.role);
 
-      // redirect
+    alert("Login Successful");
+
+    // ===== ROLE BASED REDIRECT =====
+    if (res.data.user.role === "admin") {
+      navigate("/admin-dashboard");
+    } else if (res.data.user.role === "student") {
       navigate("/dashboard");
-    } catch (error) {
-      console.error(error);
-      alert(error.response?.data?.message || "Login Failed");
-    } finally {
-      setLoading(false);
+    } else {
+      navigate("/dashboard"); // fallback
     }
-  };
+
+  } catch (error) {
+    console.error(error);
+    alert(error.response?.data?.message || "Login Failed");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="container d-flex justify-content-center align-items-center vh-100">
