@@ -237,7 +237,9 @@ app.post("/add-job", authMiddleware, async (req, res) => {
 app.get("/skill-gap/:jobTitle", authMiddleware, async (req, res) => {
   try {
 
-    const job = await Job.findOne({ jobTitle: req.params.jobTitle });
+    const job = await Job.findOne({
+  jobTitle: { $regex: req.params.jobTitle, $options: "i" }
+});
 
     if (!job) {
       return res.status(404).json({
