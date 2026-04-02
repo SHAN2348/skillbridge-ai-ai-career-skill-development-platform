@@ -12,6 +12,9 @@ function SkillGap() {
 
   // ================= ROADMAP GENERATOR =================
   const generateRoadmap = (skills) => {
+    // 🔴 FIX: handle empty skills
+    if (!skills || skills.length === 0) return [];
+
     const roadmapData = [];
 
     for (let i = 0; i < 30; i++) {
@@ -48,7 +51,7 @@ function SkillGap() {
         `https://skillbridge-ai-backend-a6hr.onrender.com/skill-gap/${jobTitle}`,
         {
           headers: {
-            Authorization: token,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -57,7 +60,7 @@ function SkillGap() {
 
       setMissingSkills(skills);
 
-      // generate roadmap automatically
+      // generate roadmap safely
       const roadmapData = generateRoadmap(skills);
       setRoadmap(roadmapData);
 
@@ -77,7 +80,6 @@ function SkillGap() {
 
   return (
     <div className="container mt-5">
-
       <div className="card shadow p-4">
         <h2 className="mb-4 text-center">Skill Gap Analyzer</h2>
 
@@ -99,7 +101,7 @@ function SkillGap() {
 
         {/* ================= MISSING SKILLS ================= */}
 
-        {missingSkills.length > 0 && (
+        {missingSkills.length > 0 ? (
           <div className="mb-4">
             <h4>Missing Skills</h4>
 
@@ -113,6 +115,8 @@ function SkillGap() {
               ))}
             </div>
           </div>
+        ) : (
+          <p className="text-center">No missing skills 🎉</p>
         )}
 
         {/* ================= ROADMAP ================= */}
